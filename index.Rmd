@@ -2,6 +2,11 @@
 title: "OpenDengue"
 ---
 
-Hello, Website!
+Hello, world!
+
+This is our heatmap.
+
+<img src="master_heatmap.png" style="width:50%">
+
 
 
