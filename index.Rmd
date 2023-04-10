@@ -3,3 +3,8 @@ title: "My Website"
 ---
 
 Hello, Website!
+
+
+This is our heatmap.
+
+<img src="master-heatmap.png" style="width:50%">
