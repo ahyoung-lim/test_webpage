@@ -7,4 +7,4 @@ Hello, Website!
 
 This is our heatmap.
 
-<img src="master-heatmap.png" style="width:50%">
+<img src="master_heatmap.png" style="width:80%">
