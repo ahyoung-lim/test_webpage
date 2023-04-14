@@ -8,3 +8,149 @@ Hello, Website!
 This is our heatmap.
 
 <img src="master_heatmap.png" style="width:80%">
+
+Up-to-date data coverage
+
+```{r include = FALSE, echo = FALSE, results = "hide"}
+require(here); require(dplyr); require(stringr); require(lubridate)
+here()
+library("ggplot2")
+theme_set(theme_bw())
+library("sf")
+library("rnaturalearth")
+library("rnaturalearthdata")
+library("sf")
+# load medium resolution global shapefile
+world <- ne_countries(scale = "medium", returnclass = "sf")
+
+
+chik <- read.csv("data/CHIKV_oc_Kraemer.csv")
+zik <- read.csv("data/ZIKV_oc_Messina.csv")
+
+dt_chik <- read.csv("data/ChIKV_oc_dmmg.csv")
+dt_zik <- read.csv("data/ZIKV_oc_dmmg.csv")
+
+#======================================
+# merge old and new occurrence datasets
+#======================================
+
+chik$date <- as.Date(as.character(chik$occurrence.date), format = "%d/%m/%y")
+
+chik <- chik %>%
+  mutate(date = ifelse(is.na(date) & is.na(occurrence.date)==FALSE, paste0(as.character(occurrence.date), "-01-01"), 
+                as.character(date)))
+
+chik$Year <- year(as.Date(chik$date))
+plyr::count(chik$Year)
+
+chik2 <- chik[, c("Year", "Longitude",  "Latitude")]
+zik2 <- zik[, c("Year", "Longitude",  "Latitude")]
+
+chik2$cat <- "Kraemer"
+zik2$cat <- "Messina"
+
+dt_chik2 <- dt_chik[, c("Year", "Longitude",  "Latitude")]
+dt_zik2 <- dt_zik[, c("Year", "Longitude",  "Latitude")]
+
+dt_chik2$cat <- "Dmmg"
+dt_zik2$cat <- "Dmmg"
+
+chik_n <- rbind(chik2, dt_chik2)
+zik_n <- rbind(zik2, dt_zik2)
+
+#write.csv(chik_n, "New_occurrence_datasets/CHIKV_oc_dmmg.csv", row.names=F)
+#write.csv(zik_n, "New_occurrence_datasets/ZIKV_oc_dmmg.csv", row.names=F)
+```
+
+
+```{r echo = FALSE, results = "hide"}
+#======================================
+# visualisations
+#======================================
+
+# bar graph by year
+chik_n %>%
+  group_by(Year, cat)%>%
+  tally()%>%
+  filter(Year>1990)%>%
+ggplot(aes(x=Year, y=n, group=cat))+
+  geom_bar(aes(fill=cat), color="grey30", stat="identity")+
+  scale_x_continuous(breaks=seq(1990,2023, by=5))+
+  scale_fill_manual(values=c( "#83c6ff", "#1F77B4"), 
+                    labels=c("DMMG", "Kraemer"))+
+  ylab("No. of occurrence data points")+
+  ggtitle("Chikungunya")+
+  theme(
+    plot.title = element_text(size=20),
+    axis.title.x = element_text(size=18, vjust=0), 
+    axis.title.y = element_text(size=18, vjust=2), 
+    axis.text = element_text(size=15), 
+    legend.title = element_blank(), 
+    legend.text = element_text(size = 12)
+  )
+```
+
+
+```{r echo = FALSE, results = "hide"}
+zik_n %>%
+  group_by(Year, cat)%>%
+  tally()%>%
+  filter(Year>1990)%>%
+ggplot(aes(x=Year, y=n, group=cat))+
+  geom_bar(aes(fill=cat), color="grey30", stat="identity")+
+  scale_x_continuous(breaks=seq(1990,2023, by=5))+
+  scale_fill_manual(values=c( "#ffb574", "#FF7F0E"), 
+                    labels=c("DMMG", "Messina"))+
+  ylab("No. of occurrence data points")+
+  ggtitle("Zika")+
+  theme(
+    plot.title = element_text(size=20),
+    axis.title.x = element_text(size=18, vjust=0), 
+    axis.title.y = element_text(size=18, vjust=2), 
+    axis.text = element_text(size=15), 
+    legend.title = element_blank(), 
+    legend.text = element_text(size = 12)
+  )
+```
+
+
+```{r echo = FALSE, results = "hide"}
+# world map
+
+ggplot(data=world)+
+  geom_sf()+
+  geom_point(data=chik_n, aes(x=Longitude, y=Latitude, color=cat), size=2)+
+  scale_color_manual(values=c( "#83c6ff", "#1F77B4"), 
+                    labels=c("DMMG", "Kraemer"))+
+  ggtitle("Chikungunya")+
+  theme_bw()+
+  theme(legend.title = element_blank(),
+        panel.border = element_blank(),
+        axis.title=element_blank(),
+        axis.text.x=element_blank(),
+        axis.text.y=element_blank(),
+        axis.ticks=element_blank(),
+        panel.grid.major=element_blank()
+  )
+```
+
+
+```{r echo = FALSE, results = "hide"}
+ggplot(data=world)+
+  geom_sf()+
+  geom_point(data=zik_n, aes(x=Longitude, y=Latitude, color=cat), size=2)+
+  scale_color_manual(values=c("#ffb574", "#FF7F0E"), 
+                    labels=c("DMMG", "Kraemer"))+
+  ggtitle("Zika")+
+  theme_bw()+
+  theme(legend.title = element_blank(),
+        panel.border = element_blank(),
+        axis.title=element_blank(),
+        axis.text.x=element_blank(),
+        axis.text.y=element_blank(),
+        axis.ticks=element_blank(),
+        panel.grid.major=element_blank()
+  )
+
+```
+
