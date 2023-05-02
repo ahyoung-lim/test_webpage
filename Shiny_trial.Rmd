@@ -1,0 +1,18 @@
+---
+title: "My Website"
+output: html_document
+
+---
+
+```{r}
+knitr::include_app("https://ahyounglim.shinyapps.io/demo/",
+  height = "600px")
+
+```
+
+Hello, Website!
+
+
+This is our heatmap.
+
+<img src="master_heatmap.png" style="width:80%">
