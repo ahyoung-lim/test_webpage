@@ -1,0 +1,13 @@
+name: demo
+title: demo
+username:
+account: ahyounglim
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 9013311
+bundleId: 7165909
+url: https://ahyounglim.shinyapps.io/demo/
+when: 1683065018.69418
+lastSyncTime: 1683065018.69419
+asMultiple: FALSE
+asStatic: FALSE
