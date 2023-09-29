@@ -157,7 +157,7 @@ ggplot(data=world)+
 ```
 ```{r}
 download_link(
-  link = "https://github.com/OpenDengue/master-repo/data/releases/V1.1/National_extract_V1_1.csv",
+  link = "https://github.com/ahyoung-lim/test_webpage/raw/gh-pages/National_extract_V1_1.zip",
   button_label = "Download pdf file",
   button_type = "danger",
   has_icon = TRUE,
