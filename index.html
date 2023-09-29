@@ -13,7 +13,7 @@
 
 <title>My Website</title>
 
-<script src="site_libs/header-attrs-2.20/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.24/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
@@ -32,6 +32,7 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<script src="site_libs/font-awesome-5.13.0/js/script.js"></script>
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -246,7 +247,7 @@ $(document).ready(function () {
   <a href="index.html">Home</a>
 </li>
 <li>
-  <a href="about.html">About</a>
+  <a href="Shiny_trial.html">About</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -269,12 +270,24 @@ $(document).ready(function () {
 <p>This is our heatmap.</p>
 <p><img src="master_heatmap.png" style="width:80%"></p>
 <p>Up-to-date data coverage</p>
+<iframe width="100%" height="1198.140625" frameborder="0" src="https://observablehq.com/embed/509508858014a8b9@95?cells=viewof+region%2Cplot">
+</iframe>
 <p><img src="index_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
 <p><img src="index_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
-<pre><code>## Warning: Removed 31 rows containing missing values
-## (`geom_point()`).</code></pre>
+<pre><code>## Warning: Removed 31 rows containing missing values (`geom_point()`).</code></pre>
 <p><img src="index_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
 <p><img src="index_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<pre class="r"><code>download_link(
+  link = &quot;https://github.com/OpenDengue/master-repo/data/releases/V1.1/National_extract_V1_1.csv&quot;,
+  button_label = &quot;Download pdf file&quot;,
+  button_type = &quot;danger&quot;,
+  has_icon = TRUE,
+  icon = &quot;fa fa-save&quot;,
+  self_contained = FALSE
+)</code></pre>
+<a href="https://github.com/OpenDengue/master-repo/data/releases/V1.1/National_extract_V1_1.csv">
+<button class="btn btn-danger"><i class="fa fa-save"></i> Download pdf file</button>
+</a>
 
 
 
